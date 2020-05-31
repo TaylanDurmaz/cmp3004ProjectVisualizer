@@ -29,7 +29,7 @@ const Visualizer = () => {
   const [width, setWidth] = useState();
   const [height, setHeight] = useState();
 
-  const [speed, setSpeed] = useState(1);
+  const [speed, setSpeed] = useState(5);
   const [dotSize, setDotsize] = useState(5);
   const [currentIdx, setCurrentIdx] = useState(0);
 
@@ -222,23 +222,9 @@ const Visualizer = () => {
 
   return (
     <VisualizerStyles>
-      <Row justify="center">
-        <Col xs={24} md={8}>
-          <Card>
-            <div ref={containerRef}>
-              <canvas
-                ref={canvasRef}
-                width={width}
-                height={width}
-                preserveAspectRatio="none"
-              />
-            </div>
-          </Card>
-        </Col>
-      </Row>
-      <Row type="flex" align="top">
-        <Col xs={24} md={12}>
-          <Card>
+      <Row type="flex" gutter={20}>
+        <Col xs={24} md={12} className="input-col">
+          <Card margin={false} className="input-card">
             <Row type="flex" className="input-container">
               <Col xs={24} md={8}>
                 <Text color="primary" bold>
@@ -260,8 +246,8 @@ const Visualizer = () => {
           </Card>
         </Col>
 
-        <Col xs={24} md={12}>
-          <Card>
+        <Col xs={24} md={12} className="input-col">
+          <Card margin={false} className="input-card">
             <Row type="flex" justify="center">
               <Button
                 icon={isRunning ? <PauseOutlined /> : <CaretRightOutlined />}
@@ -312,6 +298,21 @@ const Visualizer = () => {
                 />
               </Col>
             </Row>
+          </Card>
+        </Col>
+      </Row>
+
+      <Row justify="center">
+        <Col xs={24} md={18} lg={12} xl={10} xxl={9}>
+          <Card>
+            <div ref={containerRef}>
+              <canvas
+                ref={canvasRef}
+                width={width}
+                height={width}
+                preserveAspectRatio="none"
+              />
+            </div>
           </Card>
         </Col>
       </Row>
