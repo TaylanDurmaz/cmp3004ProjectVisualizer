@@ -97,7 +97,7 @@ const Visualizer = () => {
     });
   };
 
-  const drawLines = () => {
+  const drawLines = (doNext) => {
     if (currentIdx && currentIdx < getTour().length) {
       const canvas = canvasRef.current;
       const context = canvas.getContext("2d");
@@ -133,16 +133,17 @@ const Visualizer = () => {
       }
 
       if (isRunning && currentIdx < getTour().length - 1) {
-        setTimeout(() => {
-          setCurrentIdx((prev) => prev + 1);
-        }, 1000 / speed);
+        if (doNext)
+          setTimeout(() => {
+            setCurrentIdx((prev) => prev + 1);
+          }, 1000 / speed);
       } else setIsRunning(false);
     }
   };
 
-  const drawCanvas = () => {
+  const drawCanvas = (doNext = false) => {
     clearCanvas();
-    drawLines();
+    drawLines(doNext);
     drawCoordinates();
   };
 
@@ -169,9 +170,15 @@ const Visualizer = () => {
 
   useEffect(() => {
     if (canvasRef.current) {
+      drawCanvas(true);
+    }
+  }, [width, height, currentIdx, coordinatesVal]);
+
+  useEffect(() => {
+    if (canvasRef.current) {
       drawCanvas();
     }
-  }, [width, height, currentIdx, dotSize, coordinatesVal]);
+  }, [dotSize]);
 
   useEffect(() => {
     if (isRunning) setCurrentIdx((prev) => prev + 1);
