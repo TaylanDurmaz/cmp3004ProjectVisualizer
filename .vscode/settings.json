@@ -1,0 +1,21 @@
+{
+  "editor.formatOnSave": true,
+  // disable editor formatting, so eslint can handle it
+  "[javascript]": {
+      "editor.formatOnSave": false,
+      "editor.defaultFormatter": "vscode.typescript-language-features",
+  },
+  // available through eslint plugin in vscode
+  "eslint.autoFixOnSave": true,
+  "eslint.alwaysShowStatus": true,
+  "terminal.integrated.shellArgs.windows": [
+    "-ExecutionPolicy",
+    "Bypass"
+  ],
+
+  "editor.defaultFormatter": "dbaeumer.vscode-eslint",
+  "editor.codeActionsOnSave": {
+    "source.fixAll.eslint": true
+  },
+  "files.eol": "\n"
+}
