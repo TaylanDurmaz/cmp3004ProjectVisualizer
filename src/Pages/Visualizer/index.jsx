@@ -187,13 +187,13 @@ const Visualizer = () => {
     if (canvasRef.current) {
       drawCanvas(true);
     }
-  }, [width, height, currentIdx, coordinatesVal]);
+  }, [currentIdx]);
 
   useEffect(() => {
     if (canvasRef.current) {
       drawCanvas();
     }
-  }, [dotSize]);
+  }, [dotSize, width, height, coordinatesVal]);
 
   useEffect(() => {
     if (isRunning) setCurrentIdx((prev) => prev + 1);
