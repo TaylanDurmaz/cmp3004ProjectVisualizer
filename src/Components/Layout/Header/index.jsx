@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Row, Modal } from "antd";
-import { QuestionCircleOutlined } from "@ant-design/icons";
+import { QuestionCircleTwoTone } from "@ant-design/icons";
 import { useTheme } from "styled-components";
 import Text from "../../Text";
 import HeaderStyles from "./styles";
@@ -12,7 +12,8 @@ function Header() {
   return (
     <HeaderStyles>
       <Row justify="center" align="middle">
-        <QuestionCircleOutlined
+        <QuestionCircleTwoTone
+          className="help-icon"
           style={{ fontSize: 50, marginRight: 5, color: theme.main.primary }}
           onClick={() => setModalVisible(true)}
         />
