@@ -206,23 +206,6 @@ const Visualizer = () => {
             <Row type="flex" className="input-container">
               <Col xs={24} md={8}>
                 <Text color="primary" bold>
-                  Coordinates:
-                </Text>
-              </Col>
-              <Col xs={24} md={16}>
-                <Input.TextArea
-                  disabled={isRunning}
-                  rows={6}
-                  value={coordinatesVal}
-                  onChange={(e) => setCoordinatesVal(e.target.value)}
-                  placeholder="Separate values by new lines"
-                />
-              </Col>
-            </Row>
-
-            <Row type="flex" className="input-container">
-              <Col xs={24} md={8}>
-                <Text color="primary" bold>
                   (1-indexed) Tour:
                 </Text>
               </Col>
