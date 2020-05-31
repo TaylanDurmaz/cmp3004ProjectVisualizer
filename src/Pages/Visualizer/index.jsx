@@ -1,5 +1,14 @@
 import React, { useState, useRef, useEffect } from "react";
-import { Slider, Row, Col, Button, message, Input } from "antd";
+import {
+  Slider,
+  Row,
+  Col,
+  Button,
+  message,
+  Input,
+  Tooltip,
+  notification,
+} from "antd";
 import {
   CaretRightOutlined,
   PauseOutlined,
@@ -24,8 +33,9 @@ const Visualizer = () => {
   const [dotSize, setDotsize] = useState(5);
   const [currentIdx, setCurrentIdx] = useState(0);
 
-  const [coordinatesVal, setCoordinatesVal] = useState(initialCoordinates);
+  const [coordinatesVal] = useState(initialCoordinates);
   const [tour, setTour] = useState(initialTour);
+  const [validTour, setValidTour] = useState(true);
   const [isRunning, setIsRunning] = useState(false);
   const theme = useTheme();
 
@@ -35,11 +45,16 @@ const Visualizer = () => {
     const arr = coordinatesVal.split("\n");
     const coordinates = arr.reduce((prev, line) => {
       let newCoordinates = line.split(" ").filter((n) => n.length);
-      newCoordinates = [
-        parseInt(newCoordinates[0]),
-        parseInt(newCoordinates[1]),
-      ];
-      if (newCoordinates.length) prev.push(newCoordinates);
+      if (
+        Number.isInteger(parseInt(newCoordinates[0])) &&
+        Number.isInteger(parseInt(newCoordinates[1]))
+      ) {
+        newCoordinates = [
+          parseInt(newCoordinates[0]),
+          parseInt(newCoordinates[1]),
+        ];
+        if (newCoordinates.length) prev.push(newCoordinates);
+      }
 
       return prev;
     }, []);
@@ -184,6 +199,27 @@ const Visualizer = () => {
     if (isRunning) setCurrentIdx((prev) => prev + 1);
   }, [isRunning]);
 
+  useEffect(() => {
+    console.log(getTour().includes(0));
+    console.log(getTour().some((n) => n > getCoordinates().length));
+    console.log(getCoordinates());
+    if (
+      getTour().includes(0) ||
+      getTour().some((n) => n > getCoordinates().length)
+    ) {
+      setValidTour(false);
+      notification.open({
+        type: "error",
+        key: "invalid-input",
+        message: "Invalid indexes",
+        duration: 0,
+      });
+    } else {
+      setValidTour(true);
+      notification.close("invalid-input");
+    }
+  }, [tour]);
+
   return (
     <VisualizerStyles>
       <Row justify="center">
@@ -210,13 +246,15 @@ const Visualizer = () => {
                 </Text>
               </Col>
               <Col xs={24} md={16}>
-                <Input.TextArea
-                  disabled={isRunning}
-                  placeholder="Separate values by new lines"
-                  value={tour}
-                  onChange={(e) => setTour(e.target.value)}
-                  rows={6}
-                />
+                <Tooltip title="Inputs must be 1 indexed">
+                  <Input.TextArea
+                    disabled={isRunning}
+                    placeholder="Separate values by new lines"
+                    value={tour}
+                    onChange={(e) => setTour(e.target.value)}
+                    rows={6}
+                  />
+                </Tooltip>
               </Col>
             </Row>
           </Card>
@@ -228,7 +266,7 @@ const Visualizer = () => {
               <Button
                 icon={isRunning ? <PauseOutlined /> : <CaretRightOutlined />}
                 type={isRunning ? "default" : "primary"}
-                disabled={currentIdx >= getTour().length - 1}
+                disabled={currentIdx >= getTour().length - 1 || !validTour}
                 onClick={() => setIsRunning((prev) => !prev)}
                 style={{ marginRight: 5 }}
               >
