@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Row, Modal } from "antd";
 import { QuestionCircleTwoTone } from "@ant-design/icons";
 import { useTheme } from "styled-components";
@@ -8,6 +8,10 @@ import HeaderStyles from "./styles";
 function Header() {
   const [modalVisible, setModalVisible] = useState(false);
   const theme = useTheme();
+
+  useEffect(() => {
+    setTimeout(() => setModalVisible(true), 1000);
+  }, []);
 
   return (
     <HeaderStyles>

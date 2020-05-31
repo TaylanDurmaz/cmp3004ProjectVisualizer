@@ -14,7 +14,7 @@ export default styled.header`
 
   .help-icon {
     animation: shake 0.5s;
-    animation-delay: 2s;
+    animation-delay: 1s;
   }
 
   @keyframes shake {
