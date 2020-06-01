@@ -14,4 +14,8 @@ export default styled.div`
       }
     }
   }
+
+  .dsc {
+    font-size: 13px;
+  }
 `;

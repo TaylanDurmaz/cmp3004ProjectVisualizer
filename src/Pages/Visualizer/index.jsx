@@ -196,13 +196,14 @@ const Visualizer = () => {
   }, [dotSize, width, height, coordinatesVal]);
 
   useEffect(() => {
-    if (isRunning) setCurrentIdx((prev) => prev + 1);
+    if (isRunning) {
+      setCurrentIdx((prev) => prev + 1);
+      if (canvasRef.current)
+        canvasRef.current.scrollIntoView({ behavior: "smooth" });
+    }
   }, [isRunning]);
 
   useEffect(() => {
-    console.log(getTour().includes(0));
-    console.log(getTour().some((n) => n > getCoordinates().length));
-    console.log(getCoordinates());
     if (
       getTour().includes(0) ||
       getTour().some((n) => n > getCoordinates().length)
@@ -227,8 +228,14 @@ const Visualizer = () => {
           <Card margin={false} className="input-card">
             <Row type="flex" className="input-container">
               <Col xs={24} md={8}>
-                <Text color="primary" bold>
-                  (1-indexed) Tour:
+                <Text type="p" color="primary" bold>
+                  Tour:
+                </Text>
+                <Text className="dsc" type="p" color="secondary">
+                  City indexes must be 1-indexed and seperated by new lines
+                </Text>
+                <Text className="dsc" color="secondary" bold>
+                  {"1 <= i <= 48"}
                 </Text>
               </Col>
               <Col xs={24} md={16}>
