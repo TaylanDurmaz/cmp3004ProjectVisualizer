@@ -2,6 +2,8 @@ This app is a visualizing tool for bau-cmp3004 term project (Spring - 2020) [Heu
 
 It is a tool for those who do not want to waste time with visualizing.
 
+https://cmp3004visualizer.netlify.app/
+
 <img width="1680" alt="Screen Shot 2020-06-02 at 23 46 10" src="https://user-images.githubusercontent.com/25864398/83568108-57985800-a52b-11ea-9f1a-bc557d57ed8a.png">
 
 
